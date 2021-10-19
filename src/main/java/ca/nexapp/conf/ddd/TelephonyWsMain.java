@@ -1,30 +1,21 @@
 package ca.nexapp.conf.ddd;
 
+import java.net.URI;
+import java.util.List;
+
 import org.eclipse.jetty.server.Server;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.jetty.JettyHttpContainerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
-import ca.nexapp.conf.ddd.ws.api.calllog.CallLogResource;
-import ca.nexapp.conf.ddd.ws.api.calllog.CallLogResourceImpl;
 import ca.nexapp.conf.ddd.ws.api.contact.ContactResource;
 import ca.nexapp.conf.ddd.ws.api.contact.ContactResourceImpl;
-import ca.nexapp.conf.ddd.ws.domain.calllog.CallLog;
-import ca.nexapp.conf.ddd.ws.domain.calllog.CallLogAssembler;
-import ca.nexapp.conf.ddd.ws.domain.calllog.CallLogRepository;
-import ca.nexapp.conf.ddd.ws.domain.calllog.CallLogService;
 import ca.nexapp.conf.ddd.ws.domain.contact.Contact;
 import ca.nexapp.conf.ddd.ws.domain.contact.ContactAssembler;
 import ca.nexapp.conf.ddd.ws.domain.contact.ContactRepository;
 import ca.nexapp.conf.ddd.ws.domain.contact.ContactService;
-import ca.nexapp.conf.ddd.ws.http.CORSResponseFilter;
-import ca.nexapp.conf.ddd.ws.infrastructure.calllog.CallLogDevDataFactory;
-import ca.nexapp.conf.ddd.ws.infrastructure.calllog.CallLogRepositoryInMemory;
 import ca.nexapp.conf.ddd.ws.infrastructure.contact.ContactDevDataFactory;
 import ca.nexapp.conf.ddd.ws.infrastructure.contact.ContactRepositoryInMemory;
-
-import java.net.URI;
-import java.util.List;
 
 /**
  * RESTApi setup without using DI or spring
@@ -39,21 +30,17 @@ public class TelephonyWsMain {
 
         // Setup resources (API)
         ContactResource contactResource = createContactResource();
-        CallLogResource callLogResource = createCallLogResource();
-
 
         final AbstractBinder binder = new AbstractBinder() {
             @Override
             protected void configure() {
                 bind(contactResource).to(ContactResource.class);
-                bind(callLogResource).to(CallLogResource.class);
             }
         };
 
         final ResourceConfig config = new ResourceConfig();
         config.register(binder);
-        config.register(new CORSResponseFilter());
-        config.packages("ca.ulaval.glo4003.ws.api");
+        config.packages("ca.nexapp.conf.ddd.ws.api");
 
 
         try {
@@ -102,20 +89,4 @@ public class TelephonyWsMain {
         return new ContactResourceImpl(contactService);
     }
 
-    private static CallLogResource createCallLogResource() {
-        // Setup resources' dependencies (DOMAIN + INFRASTRUCTURE)
-        CallLogRepository callLogRepository = new CallLogRepositoryInMemory();
-
-        // For development ease
-        if (isDev) {
-            CallLogDevDataFactory callLogDevDataFactory = new CallLogDevDataFactory();
-            List<CallLog> callLogs = callLogDevDataFactory.createMockData();
-            callLogs.stream().forEach(callLogRepository::save);
-        }
-
-        CallLogAssembler callLogAssembler = new CallLogAssembler();
-        CallLogService callLogService = new CallLogService(callLogRepository, callLogAssembler);
-
-        return new CallLogResourceImpl(callLogService);
-    }
 }
