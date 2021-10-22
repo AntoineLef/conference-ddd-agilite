@@ -28,7 +28,7 @@ public class BillingService {
   }
 
   public double dailyTotalOf(String doctorId, LocalDate wantedDate) {
-    Double total = 0.0;
+    BilledAmount totalBilled = new BilledAmount();
 
     List<Procedure> procedures = procedureRepository.findAll();
 
@@ -37,13 +37,15 @@ public class BillingService {
         if (procedure.isSameDate(wantedDate)) {
           Duration procedureDuration = procedure.duration();
 
-          double procedureRatio = procedureDuration.toHours() / DAILY_WORKED_HOURS;
-          total += 600 * procedureRatio;
+          double hourWorkedRatio = procedureDuration.toHours() / DAILY_WORKED_HOURS;
+          double dailyRate = 600.0;
+
+          totalBilled = totalBilled.addProcedure(dailyRate, hourWorkedRatio);
         }
       }
     }
 
-    return total;
+    return totalBilled.value();
   }
 
 }
