@@ -34,8 +34,8 @@ public class BillingService {
 
     for (Procedure procedure : procedures) {
       if (procedure.getDoctorId().equals(doctorId)) {
-        if (procedure.getStartTime().toLocalDate().isEqual(wantedDate)) {
-          Duration procedureDuration = Duration.between(procedure.getStartTime(), procedure.getEndTime());
+        if (procedure.isSameDate(wantedDate)) {
+          Duration procedureDuration = procedure.duration();
 
           double procedureRatio = procedureDuration.toHours() / DAILY_WORKED_HOURS;
           total += 600 * procedureRatio;
