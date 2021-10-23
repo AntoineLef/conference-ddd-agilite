@@ -1,9 +1,16 @@
 package ca.nexapp.conf.ddd.ws.domain.md;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Doctor {
+
+  private static final double DAILY_RATE = 600.0;
+
+  private static final double DAILY_WORKED_HOURS = 8.0;
+
   private String id;
   private String permitNumber;
   private String name;
@@ -39,5 +46,20 @@ public class Doctor {
 
   public void addProcedure(Procedure procedure) {
     procedures.add(procedure);
+  }
+
+  public double calculateDailyBillable(LocalDate wantedDate) {
+    BilledAmount totalBilled = new BilledAmount();
+
+    for (Procedure procedure : procedures) {
+
+      if (procedure.from(wantedDate)) {
+        Duration procedureDuration = procedure.duration();
+        double hourWorkedRatio = procedureDuration.toHours() / DAILY_WORKED_HOURS;
+        totalBilled = totalBilled.addBillable(DAILY_RATE, hourWorkedRatio);
+      }
+    }
+
+    return totalBilled.value();
   }
 }

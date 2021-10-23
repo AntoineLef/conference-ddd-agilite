@@ -26,7 +26,7 @@ public class Procedure {
     return doctorId;
   }
 
-  public boolean isSameDate(LocalDate wantedDate) {
+  public boolean from(LocalDate wantedDate) {
     return period.isSameDate(wantedDate);
   }
 
