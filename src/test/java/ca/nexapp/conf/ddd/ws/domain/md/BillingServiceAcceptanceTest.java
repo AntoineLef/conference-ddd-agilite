@@ -12,11 +12,11 @@ import ca.nexapp.conf.ddd.ws.infrastructure.md.InMemoryDoctorRepository;
 
 public class BillingServiceAcceptanceTest {
 
-  private static final String DOCTOR_ID = "1";
   private static final String LOCAL_HOSPITAL = "CHUDEQUEBEC";
   private static final String LICENSE_NUMBER = "A_PERMIT_NUMBER";
   private static final LocalDate TODAY = LocalDate.now();
   private static final Double DAILY_RATE = 600.0;
+  private static final String DOCTOR_ID = LICENSE_NUMBER;
 
   private DoctorRepository doctorRepository = new InMemoryDoctorRepository();
 
@@ -63,7 +63,7 @@ public class BillingServiceAcceptanceTest {
   }
 
   private void forADoctor() {
-    Doctor doctor = new Doctor(DOCTOR_ID, LOCAL_HOSPITAL, LICENSE_NUMBER);
+    Doctor doctor = new Doctor(LOCAL_HOSPITAL, LICENSE_NUMBER);
     doctorRepository.save(doctor);
   }
 

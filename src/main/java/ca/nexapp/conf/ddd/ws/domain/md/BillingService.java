@@ -13,7 +13,6 @@ public class BillingService {
   public void addNewProcedure(String doctorId, ProcedureInfo procedureInfo) throws DoctorNotFoundException {
     String procedureId = ProcedureIdGenerator.generateId();
     Procedure procedure = new Procedure(procedureId,
-                                        doctorId,
                                         procedureInfo.hospitalName,
                                         procedureInfo.startTime,
                                         procedureInfo.endTime);

@@ -11,21 +11,19 @@ public class Doctor {
 
   private static final double DAILY_WORKED_HOURS = 8.0;
 
-  private String id;
-  private String permitNumber;
+  private String licenseNumber;
   private String name;
   private String localHospital;
 
   private List<Procedure> procedures = new ArrayList<>();
 
-  public Doctor(String doctorId, String localHospital, String permitNumber) {
-    this.id = doctorId;
+  public Doctor(String localHospital, String licenseNumber) {
     this.localHospital = localHospital;
-    this.permitNumber = permitNumber;
+    this.licenseNumber = licenseNumber;
   }
 
   public String getId() {
-    return id;
+    return licenseNumber;
   }
 
   public String getName() {

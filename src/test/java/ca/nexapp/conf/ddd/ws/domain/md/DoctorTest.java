@@ -22,7 +22,7 @@ public class DoctorTest {
 
   @BeforeEach
   public void setup() {
-    doctor = new Doctor(DOCTOR_ID, LOCAL_HOSPITAL, LICENSE_NUMBER);
+    doctor = new Doctor(LOCAL_HOSPITAL, LICENSE_NUMBER);
   }
 
   @Test
@@ -40,7 +40,7 @@ public class DoctorTest {
 
   private Procedure givenLocalHospitalProcedure(LocalDateTime startTime, int hoursWorked) {
     LocalDateTime endTime = startTime.plusHours(hoursWorked);
-    Procedure procedure = new Procedure(PROCEDURE_ID, DOCTOR_ID, LOCAL_HOSPITAL, startTime, endTime);
+    Procedure procedure = new Procedure(PROCEDURE_ID, LOCAL_HOSPITAL, startTime, endTime);
     return procedure;
   }
 
