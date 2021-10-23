@@ -30,6 +30,9 @@ public class BillingServiceTest {
   @Mock
   private DoctorRepository doctorRepository;
 
+  @Mock
+  private Doctor doctor;
+
   private BillingService billingService;
 
   @BeforeEach
@@ -37,12 +40,12 @@ public class BillingServiceTest {
     MockitoAnnotations.initMocks(this);
 
     billingService = new BillingService(doctorRepository, procedureRepo);
+    forADoctor();
   }
 
   @Test
   public void givenADoctor_whenAddingAProcedure_thenProcedureIsAddedToDoctorBilling() throws DoctorNotFoundException {
     // given
-    Doctor doctor = forADoctor();
     ProcedureInfo procedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), 8);
 
     // when
@@ -55,13 +58,12 @@ public class BillingServiceTest {
   @Test
   public void givenADoctorWithOneFullDayLocalProcedure_whenCalculatingPay_thenProcedureIsAddedToDoctorBilling() {
     // given
-    forADoctor();
     ProcedureInfo procedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), 8);
-    when(procedureRepo.findAll()).thenReturn(Arrays.asList(new Procedure(PROCEDURE_ID,
-                                                                         DOCTOR_ID,
-                                                                         LOCAL_HOSPITAL,
-                                                                         procedureInfo.startTime,
-                                                                         procedureInfo.endTime)));
+    when(doctor.getProcedures()).thenReturn(Arrays.asList(new Procedure(PROCEDURE_ID,
+                                                                        DOCTOR_ID,
+                                                                        LOCAL_HOSPITAL,
+                                                                        procedureInfo.startTime,
+                                                                        procedureInfo.endTime)));
 
     // when
     double amount = billingService.dailyTotalOf(DOCTOR_ID, TODAY);
@@ -73,7 +75,6 @@ public class BillingServiceTest {
   @Test
   public void givenADoctorWithTodayAndYesterDayLocalProcedure_whenCalculatingPay_thenOnlyTodayProcedureIsAddedToDoctorBilling() {
     // given
-    forADoctor();
     ProcedureInfo todayProcedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), 8);
     ProcedureInfo yesterdayProcedureInfo = givenLocalHospitalProcedure(LocalDateTime.now().minusDays(1), 8);
     Procedure todayProcedure = new Procedure(PROCEDURE_ID,
@@ -86,7 +87,7 @@ public class BillingServiceTest {
                                                  LOCAL_HOSPITAL,
                                                  yesterdayProcedureInfo.startTime,
                                                  yesterdayProcedureInfo.endTime);
-    when(procedureRepo.findAll()).thenReturn(Arrays.asList(todayProcedure, yesterdayProcedure));
+    when(doctor.getProcedures()).thenReturn(Arrays.asList(todayProcedure, yesterdayProcedure));
 
     // when
     double amount = billingService.dailyTotalOf(DOCTOR_ID, TODAY);
@@ -111,7 +112,7 @@ public class BillingServiceTest {
                                                        LOCAL_HOSPITAL,
                                                        yesterdayProcedureInfo.startTime,
                                                        yesterdayProcedureInfo.endTime);
-    when(procedureRepo.findAll()).thenReturn(Arrays.asList(firstYesterdayProcedure, secondYesterdayProcedure));
+    when(doctor.getProcedures()).thenReturn(Arrays.asList(firstYesterdayProcedure, secondYesterdayProcedure));
 
     // when
     double amount = billingService.dailyTotalOf(DOCTOR_ID, TODAY);
@@ -146,13 +147,11 @@ public class BillingServiceTest {
                                               LOCAL_HOSPITAL,
                                               todayProcedureInfo.startTime,
                                               todayProcedureInfo.endTime);
-    when(procedureRepo.findAll()).thenReturn(Arrays.asList(firstProcedure, secondProcedure));
+    when(doctor.getProcedures()).thenReturn(Arrays.asList(firstProcedure, secondProcedure));
   }
 
-  private Doctor forADoctor() {
-    Doctor doctor = new Doctor(DOCTOR_ID, LOCAL_HOSPITAL, LICENSE_NUMBER);
+  private void forADoctor() {
     when(doctorRepository.findById(DOCTOR_ID)).thenReturn(doctor);
-    return doctor;
   }
 
   private ProcedureInfo givenLocalHospitalProcedure(LocalDateTime startTime, int hoursWorked) {
