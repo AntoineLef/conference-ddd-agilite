@@ -45,7 +45,7 @@ public class Doctor {
 
     for (Procedure procedure : procedures) {
       if (procedure.isFrom(wantedDate)) {
-        procedure.addToTotalBilled(totalBilled, DAILY_RATE, DAILY_WORKED_HOURS);
+        totalBilled = procedure.addToTotalBilled(totalBilled, DAILY_RATE, DAILY_WORKED_HOURS);
       }
     }
 
