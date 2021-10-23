@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import ca.nexapp.conf.ddd.ws.domain.md.BilledAmount;
+
 public class Procedure {
 
   private String id;
@@ -26,6 +28,12 @@ public class Procedure {
 
   public Duration duration() {
     return period.calculateDuration();
+  }
+
+  public BilledAmount addToTotalBilled(BilledAmount totalBilled, double rate, double hoursOfWorkingDay) {
+    double hourWorkedRatio = duration().toHours() / hoursOfWorkingDay;
+
+    return totalBilled.addBillable(rate, hourWorkedRatio);
   }
 
 }

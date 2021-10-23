@@ -1,6 +1,5 @@
 package ca.nexapp.conf.ddd.ws.domain.md.doctor;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,11 +52,8 @@ public class Doctor {
     BilledAmount totalBilled = new BilledAmount();
 
     for (Procedure procedure : procedures) {
-
       if (procedure.from(wantedDate)) {
-        Duration procedureDuration = procedure.duration();
-        double hourWorkedRatio = procedureDuration.toHours() / DAILY_WORKED_HOURS;
-        totalBilled = totalBilled.addBillable(DAILY_RATE, hourWorkedRatio);
+        procedure.addToTotalBilled(totalBilled, DAILY_RATE, DAILY_WORKED_HOURS);
       }
     }
 
