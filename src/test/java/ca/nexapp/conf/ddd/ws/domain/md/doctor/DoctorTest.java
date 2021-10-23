@@ -14,10 +14,14 @@ public class DoctorTest {
 
   private static final int QUARTER_OF_A_DAY = 2;
   private static final String LICENSE_NUMBER = "2";
-  private static final String LOCAL_HOSPITAL = null;
   private static final String PROCEDURE_ID = "12";
   private static final LocalDate TODAY = LocalDate.now();
+
   private static final Double DAILY_RATE = 600.0;
+  private static final Object AWAY_DAILY_RATE = 800.0;
+
+  private static final String LOCAL_HOSPITAL = "CHUDEQUEBEC";
+  private static final String AWAY_HOSPITAL = "CUSUM";
 
   private Doctor doctor;
 
@@ -41,8 +45,27 @@ public class DoctorTest {
 
   private Procedure givenLocalHospitalProcedure(LocalDateTime startTime, int hoursWorked) {
     LocalDateTime endTime = startTime.plusHours(hoursWorked);
-    Procedure procedure = new Procedure(PROCEDURE_ID, LOCAL_HOSPITAL, startTime, endTime);
-    return procedure;
+
+    return new Procedure(PROCEDURE_ID, LOCAL_HOSPITAL, startTime, endTime);
+  }
+
+  @Test
+  public void givenADoctorWithOneFullDayAtAwayHospital_whenCalculatingPay_thenProcedureIsAddedToDoctorBilling() {
+    // given
+    Procedure procedure = givenAwayHospitalProcedure(LocalDateTime.now(), 8);
+    doctor.addProcedure(procedure);
+
+    // when
+    double amount = doctor.calculateDailyBillable(TODAY);
+
+    // then
+    Truth.assertThat(amount).isEqualTo(AWAY_DAILY_RATE);
+  }
+
+  private Procedure givenAwayHospitalProcedure(LocalDateTime startTime, int hoursWorked) {
+    LocalDateTime endTime = startTime.plusHours(hoursWorked);
+
+    return new Procedure(PROCEDURE_ID, AWAY_HOSPITAL, startTime, endTime);
   }
 
   @Test
