@@ -13,6 +13,10 @@ import org.mockito.MockitoAnnotations;
 
 import com.google.common.truth.Truth;
 
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.Doctor;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.DoctorNotFoundException;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.DoctorRepository;
+
 public class BillingServiceTest {
 
   private static final String DOCTOR_ID = "1";

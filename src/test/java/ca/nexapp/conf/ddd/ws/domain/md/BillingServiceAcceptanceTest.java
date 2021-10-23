@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import com.google.common.truth.Truth;
 
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.Doctor;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.DoctorNotFoundException;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.DoctorRepository;
 import ca.nexapp.conf.ddd.ws.infrastructure.md.InMemoryDoctorRepository;
 
 public class BillingServiceAcceptanceTest {

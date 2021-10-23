@@ -1,4 +1,4 @@
-package ca.nexapp.conf.ddd.ws.domain.md;
+package ca.nexapp.conf.ddd.ws.domain.md.doctor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,6 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.google.common.truth.Truth;
+
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.Doctor;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.procedure.Procedure;
 
 public class DoctorTest {
 

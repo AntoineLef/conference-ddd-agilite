@@ -2,6 +2,12 @@ package ca.nexapp.conf.ddd.ws.domain.md;
 
 import java.time.LocalDate;
 
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.Doctor;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.DoctorNotFoundException;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.DoctorRepository;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.procedure.Procedure;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.procedure.ProcedureIdGenerator;
+
 public class BillingService {
 
   private DoctorRepository doctorRepository;

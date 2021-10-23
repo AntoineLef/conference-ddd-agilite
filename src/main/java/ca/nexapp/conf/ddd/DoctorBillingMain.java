@@ -1,8 +1,8 @@
 package ca.nexapp.conf.ddd;
 
 import ca.nexapp.conf.ddd.ws.domain.md.BillingService;
-import ca.nexapp.conf.ddd.ws.domain.md.DoctorRepository;
 import ca.nexapp.conf.ddd.ws.domain.md.ProcedureRepository;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.DoctorRepository;
 import ca.nexapp.conf.ddd.ws.infrastructure.md.InMemoryDoctorRepository;
 import ca.nexapp.conf.ddd.ws.infrastructure.md.InMemoryProcedureRepository;
 

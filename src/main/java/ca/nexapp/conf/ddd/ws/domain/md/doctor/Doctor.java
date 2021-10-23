@@ -1,9 +1,12 @@
-package ca.nexapp.conf.ddd.ws.domain.md;
+package ca.nexapp.conf.ddd.ws.domain.md.doctor;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.nexapp.conf.ddd.ws.domain.md.BilledAmount;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.procedure.Procedure;
 
 public class Doctor {
 

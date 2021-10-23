@@ -1,4 +1,4 @@
-package ca.nexapp.conf.ddd.ws.domain.md;
+package ca.nexapp.conf.ddd.ws.domain.md.doctor.procedure;
 
 import java.util.UUID;
 

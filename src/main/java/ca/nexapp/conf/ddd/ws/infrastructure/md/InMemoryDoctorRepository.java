@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ca.nexapp.conf.ddd.ws.domain.md.Doctor;
-import ca.nexapp.conf.ddd.ws.domain.md.DoctorNotFoundException;
-import ca.nexapp.conf.ddd.ws.domain.md.DoctorRepository;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.Doctor;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.DoctorNotFoundException;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.DoctorRepository;
 
 public class InMemoryDoctorRepository implements DoctorRepository {
 

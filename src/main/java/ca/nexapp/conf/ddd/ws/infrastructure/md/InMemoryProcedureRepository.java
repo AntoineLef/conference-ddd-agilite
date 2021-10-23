@@ -3,8 +3,8 @@ package ca.nexapp.conf.ddd.ws.infrastructure.md;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.nexapp.conf.ddd.ws.domain.md.Procedure;
 import ca.nexapp.conf.ddd.ws.domain.md.ProcedureRepository;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.procedure.Procedure;
 
 public class InMemoryProcedureRepository implements ProcedureRepository {
 
