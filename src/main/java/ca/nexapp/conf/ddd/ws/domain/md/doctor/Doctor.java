@@ -9,7 +9,8 @@ import ca.nexapp.conf.ddd.ws.domain.md.doctor.procedure.Procedure;
 
 public class Doctor {
 
-  private static final double DAILY_RATE = 600.0;
+  private static final double LOCAL_DAILY_RATE = 600.0;
+  private static final double AWAY_RATE = 800.0;
 
   private static final double DAILY_WORKED_HOURS = 8.0;
 
@@ -42,10 +43,12 @@ public class Doctor {
 
   public double calculateDailyBillable(LocalDate wantedDate) {
     BilledAmount totalBilled = new BilledAmount();
+    DoctorDailyRateSelector selector = new DoctorDailyRateSelector(LOCAL_DAILY_RATE, AWAY_RATE, localHospital);
 
     for (Procedure procedure : procedures) {
       if (procedure.isFrom(wantedDate)) {
-        totalBilled = procedure.addToTotalBilled(totalBilled, DAILY_RATE, DAILY_WORKED_HOURS);
+
+        totalBilled = procedure.addToTotalBilled(totalBilled, DAILY_WORKED_HOURS, selector);
       }
     }
 

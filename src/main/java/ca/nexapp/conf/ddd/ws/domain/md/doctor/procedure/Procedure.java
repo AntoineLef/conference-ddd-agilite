@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import ca.nexapp.conf.ddd.ws.domain.md.BilledAmount;
+import ca.nexapp.conf.ddd.ws.domain.md.doctor.DoctorDailyRateSelector;
 
 public class Procedure {
 
@@ -22,9 +23,12 @@ public class Procedure {
     return period.isSameDate(wantedDate);
   }
 
-  public BilledAmount addToTotalBilled(BilledAmount totalBilled, double rate, double hoursOfWorkingDay) {
+  public BilledAmount addToTotalBilled(BilledAmount totalBilled,
+                                       double hoursOfWorkingDay,
+                                       DoctorDailyRateSelector rateSelector)
+  {
     double hourWorkedRatio = duration().toHours() / hoursOfWorkingDay;
-
+    double rate = rateSelector.getRateForHospital(hospitalName);
     return totalBilled.addBillable(rate, hourWorkedRatio);
   }
 
