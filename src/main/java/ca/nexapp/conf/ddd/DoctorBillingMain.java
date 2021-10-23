@@ -25,7 +25,7 @@ public class DoctorBillingMain {
     DoctorRepository doctorRepository = new InMemoryDoctorRepository();
     ProcedureRepository procedureRepository = new InMemoryProcedureRepository();
 
-    BillingService contactService = new BillingService(doctorRepository, procedureRepository);
+    BillingService contactService = new BillingService(doctorRepository);
 
     return contactService;
   }
