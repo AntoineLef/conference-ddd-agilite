@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import com.google.common.truth.Truth;
 
 import ca.nexapp.conf.ddd.ws.infrastructure.md.InMemoryDoctorRepository;
-import ca.nexapp.conf.ddd.ws.infrastructure.md.InMemoryProcedureRepository;
 
 public class BillingServiceAcceptanceTest {
 
@@ -19,14 +18,13 @@ public class BillingServiceAcceptanceTest {
   private static final LocalDate TODAY = LocalDate.now();
   private static final Double DAILY_RATE = 600.0;
 
-  private ProcedureRepository procedureRepo = new InMemoryProcedureRepository();
   private DoctorRepository doctorRepository = new InMemoryDoctorRepository();
 
   private BillingService billingService;
 
   @BeforeEach
   public void Setup() {
-    billingService = new BillingService(doctorRepository, procedureRepo);
+    billingService = new BillingService(doctorRepository);
   }
 
   @Test

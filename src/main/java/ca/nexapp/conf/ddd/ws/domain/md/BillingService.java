@@ -9,11 +9,9 @@ public class BillingService {
   private static final double DAILY_WORKED_HOURS = 8.0;
 
   private DoctorRepository doctorRepository;
-  private ProcedureRepository procedureRepository;
 
-  public BillingService(DoctorRepository doctorRepository, ProcedureRepository procedureRepository) {
+  public BillingService(DoctorRepository doctorRepository) {
     this.doctorRepository = doctorRepository;
-    this.procedureRepository = procedureRepository;
   }
 
   public void addNewProcedure(String doctorId, ProcedureInfo procedureInfo) throws DoctorNotFoundException {
@@ -23,7 +21,7 @@ public class BillingService {
                                         procedureInfo.hospitalName,
                                         procedureInfo.startTime,
                                         procedureInfo.endTime);
-    procedureRepository.add(procedure);
+
     Doctor doctor = doctorRepository.findById(doctorId);
     doctor.addProcedure(procedure);
 

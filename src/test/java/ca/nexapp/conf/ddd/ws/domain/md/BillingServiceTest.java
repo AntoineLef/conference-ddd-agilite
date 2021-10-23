@@ -25,9 +25,6 @@ public class BillingServiceTest {
   private static final String PROCEDURE_ID = "21";
 
   @Mock
-  private ProcedureRepository procedureRepo;
-
-  @Mock
   private DoctorRepository doctorRepository;
 
   @Mock
@@ -39,7 +36,7 @@ public class BillingServiceTest {
   public void Setup() {
     MockitoAnnotations.initMocks(this);
 
-    billingService = new BillingService(doctorRepository, procedureRepo);
+    billingService = new BillingService(doctorRepository);
     forADoctor();
   }
 
