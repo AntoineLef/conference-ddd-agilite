@@ -30,7 +30,9 @@ public class BillingServiceAcceptanceTest {
   }
 
   @Test
-  public void givenADoctorWithOneFullDayLocalProcedure_whenCalculatingPay_thenProcedureIsAddedToDoctorBilling() {
+  public void givenADoctorWithOneFullDayLocalProcedure_whenCalculatingPay_thenProcedureIsAddedToDoctorBilling()
+    throws DoctorNotFoundException
+  {
     // given
     forADoctor();
     ProcedureInfo procedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), 8);
@@ -44,7 +46,9 @@ public class BillingServiceAcceptanceTest {
   }
 
   @Test
-  public void givenADoctorWithTodayAndYesterDayLocalProcedure_whenCalculatingPay_thenOnlyTodayProcedureIsAddedToDoctorBilling() {
+  public void givenADoctorWithTodayAndYesterDayLocalProcedure_whenCalculatingPay_thenOnlyTodayProcedureIsAddedToDoctorBilling()
+    throws DoctorNotFoundException
+  {
     // given
     forADoctor();
     ProcedureInfo todayProcedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), 8);

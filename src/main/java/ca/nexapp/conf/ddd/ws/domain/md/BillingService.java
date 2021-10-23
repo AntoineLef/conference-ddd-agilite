@@ -16,13 +16,18 @@ public class BillingService {
     this.procedureRepository = procedureRepository;
   }
 
-  public void addNewProcedure(String doctorId, ProcedureInfo procedureInfo) {
+  public void addNewProcedure(String doctorId, ProcedureInfo procedureInfo) throws DoctorNotFoundException {
     String procedureId = ProcedureIdGenerator.generateId();
-    procedureRepository.add(new Procedure(procedureId,
-                                          doctorId,
-                                          procedureInfo.hospitalName,
-                                          procedureInfo.startTime,
-                                          procedureInfo.endTime));
+    Procedure procedure = new Procedure(procedureId,
+                                        doctorId,
+                                        procedureInfo.hospitalName,
+                                        procedureInfo.startTime,
+                                        procedureInfo.endTime);
+    procedureRepository.add(procedure);
+    Doctor doctor = doctorRepository.findById(doctorId);
+    doctor.addProcedure(procedure);
+
+    doctorRepository.update(doctor);
   }
 
   public void addDoctor(Doctor docter) {

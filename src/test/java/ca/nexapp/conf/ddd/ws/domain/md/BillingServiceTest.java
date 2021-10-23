@@ -1,6 +1,5 @@
 package ca.nexapp.conf.ddd.ws.domain.md;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -41,16 +40,16 @@ public class BillingServiceTest {
   }
 
   @Test
-  public void givenADoctor_whenAddingAProcedure_thenProcedureIsAddedToDoctorBilling() {
+  public void givenADoctor_whenAddingAProcedure_thenProcedureIsAddedToDoctorBilling() throws DoctorNotFoundException {
     // given
-    forADoctor();
+    Doctor doctor = forADoctor();
     ProcedureInfo procedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), 8);
 
     // when
     billingService.addNewProcedure(DOCTOR_ID, procedureInfo);
 
     // then
-    verify(procedureRepo).add(any(Procedure.class));
+    verify(doctorRepository).update(doctor);
   }
 
   @Test
@@ -150,9 +149,10 @@ public class BillingServiceTest {
     when(procedureRepo.findAll()).thenReturn(Arrays.asList(firstProcedure, secondProcedure));
   }
 
-  private void forADoctor() {
+  private Doctor forADoctor() {
     Doctor doctor = new Doctor(DOCTOR_ID, LOCAL_HOSPITAL, LICENSE_NUMBER);
     when(doctorRepository.findById(DOCTOR_ID)).thenReturn(doctor);
+    return doctor;
   }
 
   private ProcedureInfo givenLocalHospitalProcedure(LocalDateTime startTime, int hoursWorked) {

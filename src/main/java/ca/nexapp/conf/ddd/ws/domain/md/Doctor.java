@@ -1,5 +1,6 @@
 package ca.nexapp.conf.ddd.ws.domain.md;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Doctor {
@@ -8,7 +9,7 @@ public class Doctor {
   private String name;
   private String localHospital;
 
-  private List<Procedure> procedures;
+  private List<Procedure> procedures = new ArrayList<>();
 
   public Doctor(String doctorId, String localHospital, String permitNumber) {
     this.id = doctorId;
@@ -34,5 +35,9 @@ public class Doctor {
 
   public List<Procedure> getProcedures() {
     return procedures;
+  }
+
+  public void addProcedure(Procedure procedure) {
+    procedures.add(procedure);
   }
 }
