@@ -40,7 +40,7 @@ public class BillingService {
           double hourWorkedRatio = procedureDuration.toHours() / DAILY_WORKED_HOURS;
           double dailyRate = 600.0;
 
-          totalBilled = totalBilled.addProcedure(dailyRate, hourWorkedRatio);
+          totalBilled = totalBilled.addBillable(dailyRate, hourWorkedRatio);
         }
       }
     }

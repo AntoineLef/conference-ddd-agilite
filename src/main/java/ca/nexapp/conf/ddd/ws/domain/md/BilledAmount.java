@@ -12,7 +12,7 @@ public class BilledAmount {
     this.total = 0.0;
   }
 
-  public BilledAmount addProcedure(double rate, double hourWorkedRatio) {
+  public BilledAmount addBillable(double rate, double hourWorkedRatio) {
     return new BilledAmount(total + rate * hourWorkedRatio);
   }
 
