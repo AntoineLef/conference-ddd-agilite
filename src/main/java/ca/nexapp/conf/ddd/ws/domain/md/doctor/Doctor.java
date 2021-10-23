@@ -36,14 +36,6 @@ public class Doctor {
     this.name = name;
   }
 
-  public String getLocalHospital() {
-    return localHospital;
-  }
-
-  public List<Procedure> getProcedures() {
-    return procedures;
-  }
-
   public void addProcedure(Procedure procedure) {
     procedures.add(procedure);
   }
@@ -52,7 +44,7 @@ public class Doctor {
     BilledAmount totalBilled = new BilledAmount();
 
     for (Procedure procedure : procedures) {
-      if (procedure.from(wantedDate)) {
+      if (procedure.isFrom(wantedDate)) {
         procedure.addToTotalBilled(totalBilled, DAILY_RATE, DAILY_WORKED_HOURS);
       }
     }

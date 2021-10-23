@@ -18,16 +18,8 @@ public class Procedure {
     this.period = new Period(startTime, endTime);
   }
 
-  public String getHospitalName() {
-    return hospitalName;
-  }
-
-  public boolean from(LocalDate wantedDate) {
+  public boolean isFrom(LocalDate wantedDate) {
     return period.isSameDate(wantedDate);
-  }
-
-  public Duration duration() {
-    return period.calculateDuration();
   }
 
   public BilledAmount addToTotalBilled(BilledAmount totalBilled, double rate, double hoursOfWorkingDay) {
@@ -36,4 +28,7 @@ public class Procedure {
     return totalBilled.addBillable(rate, hourWorkedRatio);
   }
 
+  private Duration duration() {
+    return period.calculateDuration();
+  }
 }
