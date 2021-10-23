@@ -8,13 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import com.google.common.truth.Truth;
 
-import ca.nexapp.conf.ddd.ws.domain.md.doctor.Doctor;
 import ca.nexapp.conf.ddd.ws.domain.md.doctor.procedure.Procedure;
 
 public class DoctorTest {
 
   private static final int QUARTER_OF_A_DAY = 2;
-  private static final String DOCTOR_ID = "1";
   private static final String LICENSE_NUMBER = "2";
   private static final String LOCAL_HOSPITAL = null;
   private static final String PROCEDURE_ID = "12";
