@@ -17,7 +17,9 @@ public class BillingService {
   }
 
   public void addNewProcedure(String doctorId, ProcedureInfo procedureInfo) {
-    procedureRepository.add(new Procedure(doctorId,
+    String procedureId = ProcedureIdGenerator.generateId();
+    procedureRepository.add(new Procedure(procedureId,
+                                          doctorId,
                                           procedureInfo.hospitalName,
                                           procedureInfo.startTime,
                                           procedureInfo.endTime));

@@ -23,6 +23,7 @@ public class BillingServiceTest {
   private static final String LICENSE_NUMBER = "A_PERMIT_NUMBER";
   private static final LocalDate TODAY = LocalDate.now();
   private static final Double DAILY_RATE = 600.0;
+  private static final String PROCEDURE_ID = "21";
 
   @Mock
   private ProcedureRepository procedureRepo;
@@ -57,7 +58,8 @@ public class BillingServiceTest {
     // given
     forADoctor();
     ProcedureInfo procedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), 8);
-    when(procedureRepo.findAll()).thenReturn(Arrays.asList(new Procedure(DOCTOR_ID,
+    when(procedureRepo.findAll()).thenReturn(Arrays.asList(new Procedure(PROCEDURE_ID,
+                                                                         DOCTOR_ID,
                                                                          LOCAL_HOSPITAL,
                                                                          procedureInfo.startTime,
                                                                          procedureInfo.endTime)));
@@ -75,11 +77,13 @@ public class BillingServiceTest {
     forADoctor();
     ProcedureInfo todayProcedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), 8);
     ProcedureInfo yesterdayProcedureInfo = givenLocalHospitalProcedure(LocalDateTime.now().minusDays(1), 8);
-    Procedure todayProcedure = new Procedure(DOCTOR_ID,
+    Procedure todayProcedure = new Procedure(PROCEDURE_ID,
+                                             DOCTOR_ID,
                                              LOCAL_HOSPITAL,
                                              todayProcedureInfo.startTime,
                                              todayProcedureInfo.endTime);
-    Procedure yesterdayProcedure = new Procedure(DOCTOR_ID,
+    Procedure yesterdayProcedure = new Procedure(PROCEDURE_ID,
+                                                 DOCTOR_ID,
                                                  LOCAL_HOSPITAL,
                                                  yesterdayProcedureInfo.startTime,
                                                  yesterdayProcedureInfo.endTime);
@@ -98,11 +102,13 @@ public class BillingServiceTest {
     forADoctor();
     ProcedureInfo yesterdayProcedureInfo = givenLocalHospitalProcedure(LocalDateTime.now().minusDays(1), 8);
 
-    Procedure firstYesterdayProcedure = new Procedure(DOCTOR_ID,
+    Procedure firstYesterdayProcedure = new Procedure(PROCEDURE_ID,
+                                                      DOCTOR_ID,
                                                       LOCAL_HOSPITAL,
                                                       yesterdayProcedureInfo.startTime,
                                                       yesterdayProcedureInfo.endTime);
-    Procedure secondYesterdayProcedure = new Procedure(DOCTOR_ID,
+    Procedure secondYesterdayProcedure = new Procedure(PROCEDURE_ID,
+                                                       DOCTOR_ID,
                                                        LOCAL_HOSPITAL,
                                                        yesterdayProcedureInfo.startTime,
                                                        yesterdayProcedureInfo.endTime);
@@ -131,11 +137,13 @@ public class BillingServiceTest {
   private void with2QuaterProcedures() {
     ProcedureInfo todayProcedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), QUARTER_OF_A_DAY);
 
-    Procedure firstProcedure = new Procedure(DOCTOR_ID,
+    Procedure firstProcedure = new Procedure(PROCEDURE_ID,
+                                             DOCTOR_ID,
                                              LOCAL_HOSPITAL,
                                              todayProcedureInfo.startTime,
                                              todayProcedureInfo.endTime);
-    Procedure secondProcedure = new Procedure(DOCTOR_ID,
+    Procedure secondProcedure = new Procedure(PROCEDURE_ID,
+                                              DOCTOR_ID,
                                               LOCAL_HOSPITAL,
                                               todayProcedureInfo.startTime,
                                               todayProcedureInfo.endTime);
