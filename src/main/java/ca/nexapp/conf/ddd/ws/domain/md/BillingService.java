@@ -23,8 +23,8 @@ public class BillingService {
                                           procedureInfo.endTime));
   }
 
-  public void addDoctor(Doctor docter) {
-    doctorRepository.save(docter);
+  public void addDoctor(Doctor doctor) {
+    doctorRepository.save(doctor);
   }
 
   public double dailyTotalOf(String doctorId, LocalDate wantedDate) {
