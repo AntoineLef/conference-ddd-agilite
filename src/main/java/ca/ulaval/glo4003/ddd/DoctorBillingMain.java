@@ -1,10 +1,10 @@
-package ca.nexapp.conf.ddd;
+package ca.ulaval.glo4003.ddd;
 
-import ca.nexapp.conf.ddd.ws.domain.md.BillingService;
-import ca.nexapp.conf.ddd.ws.domain.md.DoctorRepository;
-import ca.nexapp.conf.ddd.ws.domain.md.ProcedureRepository;
-import ca.nexapp.conf.ddd.ws.infrastructure.md.InMemoryDoctorRepository;
-import ca.nexapp.conf.ddd.ws.infrastructure.md.InMemoryProcedureRepository;
+import ca.ulaval.glo4003.ddd.ws.domain.md.BillingService;
+import ca.ulaval.glo4003.ddd.ws.domain.md.DoctorRepository;
+import ca.ulaval.glo4003.ddd.ws.domain.md.ProcedureRepository;
+import ca.ulaval.glo4003.ddd.ws.infrastructure.md.InMemoryDoctorRepository;
+import ca.ulaval.glo4003.ddd.ws.infrastructure.md.InMemoryProcedureRepository;
 
 /**
  * RESTApi setup without using DI or spring

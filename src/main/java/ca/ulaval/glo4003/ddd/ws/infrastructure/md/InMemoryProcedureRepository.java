@@ -1,10 +1,10 @@
-package ca.nexapp.conf.ddd.ws.infrastructure.md;
+package ca.ulaval.glo4003.ddd.ws.infrastructure.md;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.nexapp.conf.ddd.ws.domain.md.Procedure;
-import ca.nexapp.conf.ddd.ws.domain.md.ProcedureRepository;
+import ca.ulaval.glo4003.ddd.ws.domain.md.Procedure;
+import ca.ulaval.glo4003.ddd.ws.domain.md.ProcedureRepository;
 
 public class InMemoryProcedureRepository implements ProcedureRepository {
 

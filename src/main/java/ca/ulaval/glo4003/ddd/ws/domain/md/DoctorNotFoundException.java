@@ -1,4 +1,4 @@
-package ca.nexapp.conf.ddd.ws.domain.md;
+package ca.ulaval.glo4003.ddd.ws.domain.md;
 
 public class DoctorNotFoundException extends Exception {
 

@@ -1,4 +1,4 @@
-package ca.nexapp.conf.ddd.ws.domain.md;
+package ca.ulaval.glo4003.ddd.ws.domain.md;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -22,7 +22,7 @@ public class BillingServiceTest {
   private static final String LOCAL_HOSPITAL = "CHUDEQUEBEC";
   private static final String LICENSE_NUMBER = "A_PERMIT_NUMBER";
   private static final LocalDate TODAY = LocalDate.now();
-  private static final Double DAILY_RATE = 600.0;
+  private static final Double DAILY_RATE = 2000.0;
 
   @Mock
   private ProcedureRepository procedureRepo;
