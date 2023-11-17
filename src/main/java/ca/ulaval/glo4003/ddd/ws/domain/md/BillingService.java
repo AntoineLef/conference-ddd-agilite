@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.ddd.ws.domain.md;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class BillingService {
@@ -11,7 +12,9 @@ public class BillingService {
   private DoctorRepository doctorRepository;
   private ProcedureRepository procedureRepository;
 
-  public BillingService(DoctorRepository doctorRepository, ProcedureRepository procedureRepository) {
+  public BillingService(DoctorRepository doctorRepository,
+                        ProcedureRepository procedureRepository)
+  {
     this.doctorRepository = doctorRepository;
     this.procedureRepository = procedureRepository;
   }
@@ -23,8 +26,8 @@ public class BillingService {
                                           procedureInfo.endTime));
   }
 
-  public void addDoctor(Doctor docter) {
-    doctorRepository.save(docter);
+  public void addDoctor(Doctor doctor) {
+    doctorRepository.save(doctor);
   }
 
   public double dailyTotalOf(String doctorId, LocalDate wantedDate) {
@@ -34,13 +37,18 @@ public class BillingService {
 
     for (Procedure procedure : procedures) {
       if (procedure.getDoctorId().equals(doctorId)) {
-        if (procedure.getStartTime().toLocalDate().isEqual(wantedDate)) {
-          Duration procedureDuration = Duration.between(procedure.getStartTime(), procedure.getEndTime());
-          if (procedure.getStartTime().isAfter(procedure.getEndTime())) {
-            procedureDuration = Duration.between(procedure.getStartTime(), procedure.getEndTime());
+        LocalDateTime startTime = procedure.getStartTime();
+        LocalDateTime endTime = procedure.getEndTime();
+
+        if (startTime.toLocalDate().isEqual(wantedDate)) {
+          Duration procedureDuration = Duration.between(startTime, endTime);
+          if (startTime.isAfter(endTime)) {
+            procedureDuration = Duration.between(startTime,
+                                                 endTime.plusHours(24));
 
           }
-          double procedureRatio = procedureDuration.toHours() / DAILY_WORKED_HOURS;
+          double procedureRatio = procedureDuration.toHours()
+                                  / DAILY_WORKED_HOURS;
           total += 2000 * procedureRatio;
         }
       }
