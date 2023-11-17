@@ -39,14 +39,12 @@ public class BillingService {
       if (procedure.getDoctorId().equals(doctorId)) {
         LocalDateTime startTime = procedure.getStartTime();
         LocalDateTime endTime = procedure.getEndTime();
+        Period period = new Period(startTime, endTime);
 
-        if (startTime.toLocalDate().isEqual(wantedDate)) {
-          Duration procedureDuration = Duration.between(startTime, endTime);
-          if (startTime.isAfter(endTime)) {
-            procedureDuration = Duration.between(startTime,
-                                                 endTime.plusHours(24));
+        if (period.isForDate(wantedDate)) {
 
-          }
+          Duration procedureDuration = period.calculateDuration();
+
           double procedureRatio = procedureDuration.toHours()
                                   / DAILY_WORKED_HOURS;
           total += 2000 * procedureRatio;

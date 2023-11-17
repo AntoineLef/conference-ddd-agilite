@@ -23,11 +23,16 @@ public class InMemoryWithDataHospitalRepository implements HospitalRepository {
   @Override
   public Hospital getByName(String name) {
 
-    return hospitals.values().stream().filter(h -> h.hospitalName().equals(name)).findFirst().orElseThrow();
+    return hospitals.values()
+                    .stream()
+                    .filter(h -> h.hospitalName().equals(name))
+                    .findFirst()
+                    .orElseThrow();
   }
 
   static InMemoryWithDataHospitalRepository init() {
-    InMemoryWithDataHospitalRepository repo = new InMemoryWithDataHospitalRepository();
+    InMemoryWithDataHospitalRepository repo =
+                                            new InMemoryWithDataHospitalRepository();
     repo.save(new Hospital(UUID.randomUUID(), "chudequebec", 1.15));
     return repo;
   }
