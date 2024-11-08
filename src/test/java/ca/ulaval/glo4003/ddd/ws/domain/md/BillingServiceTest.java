@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ public class BillingServiceTest {
   private DoctorRepository doctorRepository;
 
   private BillingService billingService;
+  private List<Procedure> procedures;
 
   @BeforeEach
   public void Setup() {
@@ -42,8 +44,8 @@ public class BillingServiceTest {
   @Test
   public void givenADoctor_whenAddingAProcedure_thenProcedureIsAddedToDoctorBilling() {
     // given
-    forADoctor();
     ProcedureInfo procedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), 8);
+    forADoctor();
 
     // when
     billingService.addNewProcedure(DOCTOR_ID, procedureInfo);
@@ -55,12 +57,12 @@ public class BillingServiceTest {
   @Test
   public void givenADoctorWithOneFullDayLocalProcedure_whenCalculatingPay_thenProcedureIsAddedToDoctorBilling() {
     // given
-    forADoctor();
     ProcedureInfo procedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), 8);
     when(procedureRepo.findAll()).thenReturn(Arrays.asList(new Procedure(DOCTOR_ID,
                                                                          LOCAL_HOSPITAL,
                                                                          procedureInfo.startTime,
                                                                          procedureInfo.endTime)));
+    forADoctor();
 
     // when
     double amount = billingService.dailyTotalOf(DOCTOR_ID, TODAY);
@@ -72,7 +74,6 @@ public class BillingServiceTest {
   @Test
   public void givenADoctorWithTodayAndYesterDayLocalProcedure_whenCalculatingPay_thenOnlyTodayProcedureIsAddedToDoctorBilling() {
     // given
-    forADoctor();
     ProcedureInfo todayProcedureInfo = givenLocalHospitalProcedure(LocalDateTime.now(), 8);
     ProcedureInfo yesterdayProcedureInfo = givenLocalHospitalProcedure(LocalDateTime.now().minusDays(1), 8);
     Procedure todayProcedure = new Procedure(DOCTOR_ID,
@@ -84,6 +85,7 @@ public class BillingServiceTest {
                                                  yesterdayProcedureInfo.startTime,
                                                  yesterdayProcedureInfo.endTime);
     when(procedureRepo.findAll()).thenReturn(Arrays.asList(todayProcedure, yesterdayProcedure));
+    forADoctor();
 
     // when
     double amount = billingService.dailyTotalOf(DOCTOR_ID, TODAY);
@@ -95,7 +97,6 @@ public class BillingServiceTest {
   @Test
   public void givenADoctorWithTwoYesterDayLocalProcedure_whenCalculatingPay_thenDoctorBillingIs0() {
     // given
-    forADoctor();
     ProcedureInfo yesterdayProcedureInfo = givenLocalHospitalProcedure(LocalDateTime.now().minusDays(1), 8);
 
     Procedure firstYesterdayProcedure = new Procedure(DOCTOR_ID,
@@ -107,6 +108,7 @@ public class BillingServiceTest {
                                                        yesterdayProcedureInfo.startTime,
                                                        yesterdayProcedureInfo.endTime);
     when(procedureRepo.findAll()).thenReturn(Arrays.asList(firstYesterdayProcedure, secondYesterdayProcedure));
+    forADoctor();
 
     // when
     double amount = billingService.dailyTotalOf(DOCTOR_ID, TODAY);
@@ -118,8 +120,8 @@ public class BillingServiceTest {
   @Test
   public void givenADoctorWithTwoQuarterDayLocalProcedure_whenCalculatingPay_thenDoctorBillingIsAtHalfDailyRate() {
     // given
-    forADoctor();
     with2QuaterProcedures();
+    forADoctor();
 
     // when
     double amount = billingService.dailyTotalOf(DOCTOR_ID, TODAY);
@@ -139,11 +141,12 @@ public class BillingServiceTest {
                                               LOCAL_HOSPITAL,
                                               todayProcedureInfo.startTime,
                                               todayProcedureInfo.endTime);
-    when(procedureRepo.findAll()).thenReturn(Arrays.asList(firstProcedure, secondProcedure));
+    procedures = Arrays.asList(firstProcedure, secondProcedure);
+    when(procedureRepo.findAll()).thenReturn(procedures);
   }
 
   private void forADoctor() {
-    Doctor doctor = new Doctor(DOCTOR_ID, LOCAL_HOSPITAL, LICENSE_NUMBER);
+    Doctor doctor = new Doctor(DOCTOR_ID, LOCAL_HOSPITAL, LICENSE_NUMBER, procedureRepo.findAll());
     when(doctorRepository.findById(DOCTOR_ID)).thenReturn(doctor);
   }
 
