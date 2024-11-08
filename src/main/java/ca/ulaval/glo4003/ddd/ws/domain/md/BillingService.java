@@ -1,4 +1,4 @@
-package ca.nexapp.conf.ddd.ws.domain.md;
+package ca.ulaval.glo4003.ddd.ws.domain.md;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -11,7 +11,9 @@ public class BillingService {
   private DoctorRepository doctorRepository;
   private ProcedureRepository procedureRepository;
 
-  public BillingService(DoctorRepository doctorRepository, ProcedureRepository procedureRepository) {
+  public BillingService(DoctorRepository doctorRepository,
+                        ProcedureRepository procedureRepository)
+  {
     this.doctorRepository = doctorRepository;
     this.procedureRepository = procedureRepository;
   }
@@ -35,10 +37,12 @@ public class BillingService {
     for (Procedure procedure : procedures) {
       if (procedure.getDoctorId().equals(doctorId)) {
         if (procedure.getStartTime().toLocalDate().isEqual(wantedDate)) {
-          Duration procedureDuration = Duration.between(procedure.getStartTime(), procedure.getEndTime());
+          // TDA
+          Period period = procedure.getPeriod();
+          Duration procedureDuration = period.calculateDuration();
 
-          double procedureRatio = procedureDuration.toHours() / DAILY_WORKED_HOURS;
-          total += 600 * procedureRatio;
+          double procedureRatio = Math.abs(procedureDuration.toHours()) / DAILY_WORKED_HOURS;
+          total += 2000 * procedureRatio;
         }
       }
     }

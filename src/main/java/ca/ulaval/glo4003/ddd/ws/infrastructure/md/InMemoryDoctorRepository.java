@@ -1,12 +1,12 @@
-package ca.nexapp.conf.ddd.ws.infrastructure.md;
+package ca.ulaval.glo4003.ddd.ws.infrastructure.md;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ca.nexapp.conf.ddd.ws.domain.md.Doctor;
-import ca.nexapp.conf.ddd.ws.domain.md.DoctorNotFoundException;
-import ca.nexapp.conf.ddd.ws.domain.md.DoctorRepository;
+import ca.ulaval.glo4003.ddd.ws.domain.md.Doctor;
+import ca.ulaval.glo4003.ddd.ws.domain.md.DoctorNotFoundException;
+import ca.ulaval.glo4003.ddd.ws.domain.md.DoctorRepository;
 
 public class InMemoryDoctorRepository implements DoctorRepository {
 

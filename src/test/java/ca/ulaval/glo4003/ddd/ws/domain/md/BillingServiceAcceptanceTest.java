@@ -1,4 +1,4 @@
-package ca.nexapp.conf.ddd.ws.domain.md;
+package ca.ulaval.glo4003.ddd.ws.domain.md;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,8 +8,13 @@ import org.junit.jupiter.api.Test;
 
 import com.google.common.truth.Truth;
 
-import ca.nexapp.conf.ddd.ws.infrastructure.md.InMemoryDoctorRepository;
-import ca.nexapp.conf.ddd.ws.infrastructure.md.InMemoryProcedureRepository;
+import ca.ulaval.glo4003.ddd.ws.domain.md.BillingService;
+import ca.ulaval.glo4003.ddd.ws.domain.md.Doctor;
+import ca.ulaval.glo4003.ddd.ws.domain.md.DoctorRepository;
+import ca.ulaval.glo4003.ddd.ws.domain.md.ProcedureInfo;
+import ca.ulaval.glo4003.ddd.ws.domain.md.ProcedureRepository;
+import ca.ulaval.glo4003.ddd.ws.infrastructure.md.InMemoryDoctorRepository;
+import ca.ulaval.glo4003.ddd.ws.infrastructure.md.InMemoryProcedureRepository;
 
 public class BillingServiceAcceptanceTest {
 
